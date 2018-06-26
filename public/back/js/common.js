@@ -10,12 +10,12 @@
 
    $.ajax ({
      type:"get",
-     url:"/employee/employeeLogin",
-     dataType:"josn",
+     url:"/employee/checkRootLogin",
+     dataType:"json",
      success: function (info) {
        if(info.error === 400) {
          //没登陆, 拦截登陆
-         location.href("login.html");
+         location.href = "login.html";
        }
        if (info.success) {
          //d当前用户已登录
@@ -41,4 +41,39 @@ $(document).ajaxStop(function () {
   }, 500)
 
 
+})
+
+//公共功能
+
+$(function () {
+     //1--点击切换二级菜单栏
+  $('.lt_aside .category').click(function () {
+    $('.lt_aside .child').stop().slideToggle();
+   });
+
+   //2--左侧整个侧边栏显示隐藏
+   $('.lt_topbar .icon_menu').click(function () {
+     $('.lt_aside').toggleClass('hidemenu');
+     $('.lt_main').toggleClass('hidemenu');
+     $('.lt_topbar').toggleClass('hidemenu');
+   });
+
+   //3--点击退出按钮显示模态框
+   $('.lt_topbar .icon_logout').click(function () {
+     $('#logoutModal').modal("show")
+   })
+
+   //4--点击模态框中的退出按钮,让用户销毁当前用户的登陆状态
+  $('#logoutModal').click(function () {
+    $.ajax({
+      type:"get",
+      url:"/employee/employeeLogout",
+      dataType:"json",
+      success: function (info) {
+        if (info.success) {
+          location.href = "login.html"
+        }
+      } 
+   })
+  })
 })
