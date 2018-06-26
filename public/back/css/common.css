@@ -74,6 +74,7 @@ ul {
   color: #fff;
   line-height: 40px;
   padding-left: 40px;
+  border-left: 3px solid transparent;
 }
 .lt_aside .nav a.current {
   background-color: #1D1F21;
